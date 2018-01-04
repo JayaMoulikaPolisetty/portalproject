@@ -1,0 +1,6 @@
+package Mainprograms;
+
+public class Factorial {
+	
+	System.out.println("Enter any number");
+}

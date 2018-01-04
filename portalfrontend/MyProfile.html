@@ -1,0 +1,31 @@
+
+<form name="userForm">
+<div class="form-group">
+  <label for="username">Username</label>
+  <input type="text" class="form-control" id="" ng-model = "user.username" disabled>
+</div>
+<div class="form-group">
+  <label for="firstname">Firstname</label>
+  <input type="text" class="form-control" ng-model = "user.firstname" id="">
+</div>
+<div class="form-group">
+  <label for="lastname">Lastname</label>
+  <input type="text" class="form-control" ng-model = "user.lastname" id="">
+</div>
+<div class="form-group">
+  <label for="password">Change Password</label>
+  <input type="password" class="form-control"ng-model = "user.password" id="">
+</div>
+<div class="form-group">
+  <label for="Email">Email</label>
+  <input type="text" class="form-control" id="" ng-model = "user.email" disabled>
+</div>
+<div class="form-group">
+  <label for="mobile">Mobile</label>
+  <input type="text" class="form-control" ng-model = "user.mobile" id="">
+</div>
+<input type = "hidden" ng-model = "user.status">
+<input type= "hidden" ng-model = "user.user_role">
+<div>
+<button type="submit" name="button" ng-click="editProfile()">Save</button>
+</div>

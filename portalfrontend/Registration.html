@@ -1,0 +1,57 @@
+
+
+<h3>{{message}}</h3>
+
+<div class="col-md-3"></div>
+<div class="col-md-6">
+  <h3 style="text-align: center">User Registration form</h3>
+<form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+<div class="form-group">
+  <label for="Username">Username</label>
+  <input type="text" name="username" class="form-control" ng-model="portal_user.username" ng-minlength="4" ng-maxlength="8" required>
+   <p ng-show="userForm.username.$invalid && userForm.username.$touched" class="help-block">Username is required.</p>
+   <p ng-show="userForm.username.$error.minlength" class="help-block">Username is too short.</p>
+   <p ng-show="userForm.username.$error.maxlength" class="help-block">Username is too long.</p>
+</div>
+<div class="form-group">
+  <label for="Firstname">Firstname</label>
+  <input type="text" name="firstname" class="form-control" ng-model="portal_user.firstname" ng-minlength="5" ng-maxlength="12">
+  <p ng-show="userForm.firstname.$touched && userForm.firstname.$error.minlength" class="help-block">Firstname is too short.</p>
+  <p ng-show="userForm.firstname.$touched && userForm.firstname.$error.maxlength" class="help-block">Firstname is too long.</p>
+</div>
+<div class="form-group">
+  <label for="Lastname">Lastname</label>
+  <input type="text" name="lastname" class="form-control" ng-model="portal_user.lastname"  ng-minlength="5" ng-maxlength="15">
+  <p ng-show="userForm.lastname.$touched && userForm.lastname.$error.minlength" class="help-block">Lastname is too short.</p>
+  <p ng-show="userForm.lastname.$touched && userForm.lastname.$error.maxlength" class="help-block">Lastname is too long.</p>
+</div>
+<div class="form-group">
+  <label for="Password">Password</label>
+  <input type="password" name="password" class="form-control" ng-model="portal_user.password" ng-pattern="/^[a-zA-Z0-9]{1,7}$/"required>
+  <p ng-show="userForm.password.$error.pattern" class="help-block">password pattern doesn't match</p>
+</div>
+<div class="form-group">
+  <label for="Email">Email</label>
+  <input type="email" name="email" class="form-control" ng-model="portal_user.email" required>
+  <p ng-show="userform.email.$invalid" class="help-block">Email is invalid</p>
+</div>
+<div class="form-group">
+  <label for="Mobile number">Mobile number</label>
+  <input type="text" name="mobile" class="form-control" ng-model="portal_user.mobile" ng-minlength="10" ng-maxlength="10">
+    <p ng-show="userForm.mobile.$invalid" class="help-block">Mobile is invalid</p>
+</div>
+<div class="form-group">
+  <label for="Role">Role</label>
+  <p>
+  <input type="radio" name="role" value="Student" ng-model="portal_user.user_role">Student
+   <input type="radio" name="role" value="Employee" ng-model="portal_user.user_role">Employee
+   <input type="radio" name="role" value="Alumni" ng-model="portal_user.user_role">Alumni
+</p>
+</div>
+  <input type="hidden" class="form-control" value="0" ng-model="portal_user.status">
+
+<button type="submit" name="button" ng-click="registeruser()">Register</button>
+</form>
+
+</form>
+</div>
