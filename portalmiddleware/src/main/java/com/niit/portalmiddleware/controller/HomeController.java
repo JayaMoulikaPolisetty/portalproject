@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.niit.portalbackend.portal_user;
@@ -52,5 +53,33 @@ public class HomeController {
 		return new ResponseEntity<portal_user>(user,HttpStatus.ACCEPTED);
 	}
 	
+	@PostMapping("/editProfile")
+	public ResponseEntity<?> editProfile(@RequestBody portal_user user)
+	{
+		try {
+			portalUserDao.updatePortalUser(user);
+		}catch(Exception e)
+		{
+			return new ResponseEntity<String>("user updation failed", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<portal_user>(user,HttpStatus.ACCEPTED);
+	}
 	
+	@GetMapping("/logout")
+	public ResponseEntity<?> logout(@RequestParam("username") String username)
+	{
+		try {
+			portal_user user= portalUserDao.getUserByUsername(username);
+			user.setStatus(false);
+			portalUserDao.updatePortalUser(user);
+			
+		}catch(Exception e)
+		{
+			return new ResponseEntity<Boolean>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+	}
+	
+	
+
 }

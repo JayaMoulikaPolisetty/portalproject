@@ -1,0 +1,7 @@
+package com.niit.portalbackend.daoImpl;
+
+import com.niit.portalbackend.dao.BlogDao;
+
+public class BlogDaoImpl implements BlogDao{
+
+}

@@ -1,0 +1,158 @@
+package com.niit.portalmiddleware.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.niit.portalbackend.portal_user;
+import com.niit.portalbackend.dao.PortalUserDao;
+
+@RestController
+public class HomeController {
+	
+	@GetMapping("/")
+	public String index()
+	{
+		return "index";
+	}
+	@Autowired
+	PortalUserDao portalUserDao;
+
+	@PostMapping("/registeruser")
+	public ResponseEntity<?> registeruser(@RequestBody portal_user user)
+	{
+		try {
+			portalUserDao.addPortalUser(user);Skip to content
+			This repository
+			Search
+			Pull requests
+			Issues
+			Marketplace
+			Explore
+			 @Moulika123
+			 Sign out
+			 Unwatch 1
+			  Star 0  Fork 0 Moulika123/portalproject
+			 Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights  Settings
+			Options
+			Collaborators
+			Branches
+			Webhooks
+			Integrations & services
+			Deploy keys
+			Settings
+			Repository name
+			 
+			portalproject
+			  Rename
+			Features
+			 Wikis 
+			GitHub Wikis is a simple way to let others contribute content. Any GitHub user can create and edit pages to use for documentation, examples, support, or anything you wish.
+
+			Restrict editing to collaborators only 
+			Public wikis will still be readable by everyone.
+
+			Issues 
+			GitHub Issues adds lightweight issue tracking tightly integrated with your repository. Add issues to milestones, label issues, and close & reference issues from commit messages.
+
+			Projects 
+			Project boards on GitHub help you organize and prioritize your work. You can create project boards for specific feature work, comprehensive roadmaps, or even release checklists.
+
+			Data services
+			Use the data from your repository to power these enhanced features.
+
+			Vulnerability alerts 
+			Receive alerts for known security vulnerablities found in dependencies.
+
+			Merge button
+			When merging pull requests, you can allow any combination of merge commits, squashing, or rebasing. At least one option must be enabled.
+
+			Allow merge commits  
+			Add all commits from the head branch to the base branch with a merge commit.
+
+			Allow squash merging  
+			Combine all commits from the head branch into a single commit in the base branch.
+
+			Allow rebase merging  
+			Add all commits from the head branch onto the base branch individually.
+
+			Temporary interaction limits
+			Temporarily restrict which users can interact with your repository (comment, open issues, or create pull requests) for a 24-hour period. This may be used to force a "cool-down" period during heated discussions.
+
+			 Limit to existing users 
+			Users that have recently created their account will be unable to interact with the repository.
+
+			Limit to prior contributors 
+			Users that have not previously committed to the repository's master branch will be unable to interact with the repository.
+
+			Limit to repository collaborators 
+			Users that have not been granted push access will be unable to interact with the repository.
+
+			GitHub Pages
+			GitHub Pages is designed to host your personal, organization, or project pages from a GitHub repository.
+
+			Source
+			GitHub Pages is currently disabled. Select a source below to enable GitHub Pages for this repository. Learn more.
+
+			 None   Save
+			Theme Chooser
+			Select a theme to publish your site with a Jekyll theme using the master branch. Learn more.
+
+			 Choose a theme
+			Danger Zone
+			Make this repository private
+			Please upgrade your plan to make this repository private.
+
+			Transfer
+			Transfer ownership
+			Transfer this repository to another user or to an organization where you have the ability to create repositories.
+
+			Archive this repository Archive this repository
+			Mark this repository as archived and read-only.
+
+			Delete this repository Delete this repository
+			Once you delete a repository, there is no going back. Please be certain.
+
+			© 2018 GitHub, Inc.
+			Terms
+			Privacy
+			Security
+			Status
+			Help
+			Contact GitHub
+			API
+			Training
+			Shop
+			Blog
+			About
+		}catch(Exception e)
+		{
+			return new ResponseEntity<String>("User creation error", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return new ResponseEntity<portal_user>(user, HttpStatus.CREATED); 
+	}
+	
+
+	@PostMapping("/authenticate")
+	public ResponseEntity<?> login(@RequestBody portal_user user)
+	{
+		try {
+			user=portalUserDao.getCredentials(user);
+			user.setStatus(true);
+			portalUserDao.updatePortalUser(user);
+			
+		}catch(Exception e)
+		{
+			return new ResponseEntity<String>("User login fails", HttpStatus.UNAUTHORIZED);
+		}
+		return new ResponseEntity<portal_user>(user,HttpStatus.ACCEPTED);
+	}
+	
+	
+}

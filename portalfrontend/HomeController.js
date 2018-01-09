@@ -1,5 +1,12 @@
 
-HomeModule.controller('HomeController', function($scope, $location, HomeService){
+HomeModule.controller('HomeController', function($scope, $rootScope,$cookieStore,$cookies,$location, HomeService){
+
+   console.log($cookieStore.get('user'));
+   if($cookieStore.get('user')!=null)
+   {
+     $rootScope.userdetails=$cookieStore.get('user');
+     $rootScope.authenticated=true;
+   }
 
   $scope.registeruser = function(){
     HomeService.registeruser($scope.portal_user).then(function(response){
@@ -19,8 +26,12 @@ HomeModule.controller('HomeController', function($scope, $location, HomeService)
 
         alert("loggedin Successfully");
       console.log(response.data.status)
-      $scope.user = response.data
-    $location.path("Home")
+      $cookieStore.put('user', response.data)
+       $rootScope.userdetails= $cookieStore.get('user')
+      console.log($rootScope.userdetails.user_role)
+      console.log($scope.authenticated);
+    $location.path("/home")
+
 
     })
     ,function(response)
@@ -29,5 +40,38 @@ HomeModule.controller('HomeController', function($scope, $location, HomeService)
     }
 
   }
+
+  $scope.editProfile=function() {
+    HomeService.editProfile($rootScope.userdetails).then(function(response){
+      console.log(response.data)
+      $location.path("Home")
+    })
+    ,function(response)
+    {
+      console.log(response)
+    }
+
+  }
+
+  $scope.logout = function(){
+      console.log("called")
+        HomeService.logout($rootScope.userdetails).then(function(response){
+
+          $cookies.remove('authentication')
+          $rootScope.authenticated = null;
+          $cookieStore.remove("user");
+          $rootScope.userdetails = null;
+          $location.path("/")
+          console.log($rootScope.authenticated)
+        })
+        ,function(response)
+        {
+          console.log(response)
+        }
+
+
+    }
+
+
 
 })

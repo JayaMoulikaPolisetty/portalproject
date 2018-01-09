@@ -1,11 +1,14 @@
-var HomeModule = angular.module('HomeModule', ['ngRoute']);
+var HomeModule = angular.module('HomeModule', ['ngRoute', 'ngCookies']);
 
 HomeModule.config(function($routeProvider){
     $routeProvider
 
     .when("/",{
-      templateUrl:'Login.html',
-      controller: 'HomeController'
+      templateUrl: 'Home.html'
+    })
+    .when("/home",{
+      templateUrl:'Home.html',
+      controller:"HomeController"
     })
     .when("/register",{
       templateUrl:'Registration.html',
@@ -15,6 +18,14 @@ HomeModule.config(function($routeProvider){
       templateUrl: "Login.html",
       controller: "HomeController"
     })
-    
+    .when("/editProfile", {
+      templateUrl: "MyProfile.html",
+      controller: "HomeController"
+    })
+    // .when("/logout", {
+    //   templateUrl: "Login.html",
+    //   controller: "HomeController"
+    // })
+
 
 })

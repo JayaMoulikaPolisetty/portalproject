@@ -19,11 +19,13 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="nav navbar-nav">
-        <li><a href="#">Home</a></li>
-        <li><a href="#!/register">Register</a></li>
-        <li><a href="#!/login">Login</a></li>
-        <li><a href="#!/editProfile">My Profile</a></li>
-        <li><a href="#">Logout</a></li>
+        <li><a href="#!/home">Home</a></li>
+        <li><a href="#!/register" ng-show="!authenticated">Register</a></li>
+        <li><a href="#!/login" ng-show = "!authenticated">Login</a></li>
+        <li><a href="#!/editProfile" ng-show ="authenticated">My Profile</a></li>
+        <li><a href="#" ng-show="userdetails.user_role=='student'">Blog</a></li>
+        <li><a href="#" ng-show="userdetails.user_role=='Employee'">Job</a></li>
+        <li><a hre="#" ng-click="logout()" ng-controller="HomeController" ng-show="authenticated">Logout</a></li>
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
@@ -53,6 +55,7 @@
 <script src="HomeService.js" charset="utf-8"></script>
 
 <script src="bower_components\angular-route\angular-route.js" charset="utf-8"></script>
+<script src="node_modules\angular-cookies\angular-cookies.min.js" charset="utf-8"></script>
 
 </body>
 </html>

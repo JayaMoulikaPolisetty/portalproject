@@ -13,5 +13,13 @@ var userservice={};
 
     return $http.post(BASE_URL+"/authenticate",credentials);
   }
+
+  userservice.editProfile = function(user){
+    return $http.post(BASE_URL+ "/editProfile", user);
+  }
+
+  userservice.logout = function(userdetails){
+    return $http.get(BASE_URL+ "/logout?username="+userdetails.username);
+  }
   return userservice;
 })
