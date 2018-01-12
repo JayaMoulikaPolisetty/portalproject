@@ -1,17 +1,46 @@
-<table>
-  <th>
-    <td>Blog Name</td>
-    <td>Blog Description</td>
-    <td>Added By</td>
-    <td>Added on</td>
-    <td>Likes</td>
-  </th>
-  <tr ng-repeat = "blog in blogs">
-    <td>blog.blogName</td>
-    <td>blog.blogDescription</td>
-    <td>blog.user</td>
-    <td>blog.blogDate</td>
-    <td>blog.likes</td>
-  </tr>
 
+<div ng-init="blogslist()">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+  <h2 style="text-align: center">List of the blogs</h2>
+<table border="2"class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Blog Name</th>
+        <th>Blog Description</th>
+        <th>Added By</th>
+        <th>Added on</th>
+      </tr>
+    </thead>
+<tbody>
+  <tr ng-repeat = "blog in blogs" ng-if = "blog.approved == true">
+    <td>{{blog.blogName}}</td>
+    <td>{{blog.blogDescription |  limitTo: 25}}....</td>
+    <td>{{blog.user.username}}</td>
+    <td>{{blog.blogDate | date}}</td>
+  </tr>
+</tbody>
 </table>
+<div>
+<div>
+<div  ng-if="userdetails.user_role== 'admin'">
+  <h2 style="text-align: center">List of the blogs not approved</h2>
+<table border="2"class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Blog Name</th>
+        <th>Blog Description</th>
+        <th>Added By</th>
+        <th>Added on</th>
+      </tr>
+    </thead>
+<tbody>
+  <tr ng-repeat = "blog in blogs" ng-if = "blog.approved == false">
+    <td>{{blog.blogName}}</td>
+    <td>{{blog.blogDescription | limitTo: 25}}......</td>
+    <td>{{blog.user.username}}</td>
+    <td>{{blog.blogDate | date}}</td>
+  </tr>
+</tbody>
+</table>
+</div>

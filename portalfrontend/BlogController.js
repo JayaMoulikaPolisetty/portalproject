@@ -14,7 +14,6 @@ HomeModule.controller("BlogController", function($scope,$location,$rootScope,Blo
 
   $scope.blogslist=function()
   {
-    alert("123")
     BlogService.blogslist().then(function(response){
 
       $scope.blogs= response.data
@@ -24,4 +23,5 @@ HomeModule.controller("BlogController", function($scope,$location,$rootScope,Blo
       console.log(response)
     }
   }
+
 })
