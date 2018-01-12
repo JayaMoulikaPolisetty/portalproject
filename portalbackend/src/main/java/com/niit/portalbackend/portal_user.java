@@ -1,10 +1,16 @@
 package com.niit.portalbackend;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class portal_user {
@@ -19,8 +25,17 @@ public class portal_user {
 	private String user_role;
 	private boolean status;
 	
-	@OneToMany(mappedBy = "user")
-	private Blog blog;
+	@JsonIgnore
+	@OneToMany(mappedBy = "user", fetch=FetchType.EAGER)
+	private List<Blog> blogs;
+	
+	
+	public List<Blog> getBlogs() {
+		return blogs;
+	}
+	public void setBlogs(List<Blog> blogs) {
+		this.blogs = blogs;
+	}
 	public String getUsername() {
 		return this.username;
 	}

@@ -1,0 +1,47 @@
+package com.niit.portalbackend;
+
+import java.util.Date;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.niit.portalbackend.dao.BlogDao;
+import com.niit.portalbackend.dao.PortalUserDao;
+
+
+public class BlogTestCase {
+	
+	AnnotationConfigApplicationContext context =  new AnnotationConfigApplicationContext();;
+	static PortalUserDao portalUserDao;
+	portal_user user;
+	static BlogDao blogDao;
+	static Blog blog;
+
+	@BeforeClass
+	public static void init() {
+		context =
+		context.scan("com.niit");
+		context.refresh();
+		portalUserDao = (PortalUserDao) context.getBean("portalUserDao");
+		blogDao = (BlogDao) context.getBean("blogDao");
+		blog = new Blog();
+	}
+	
+	@Test
+	public void addBlogTest()
+	{
+		blog.setBlogName("Angular JS");
+		blog.setBlogDescription("Angular JS is a framework of JavaScript");
+		blog.setApproved(false);
+		blog.setBlogDate(new Date());
+		blog.setLikes(0);
+		blog.setUser(portalUserDao.getUserByUsername("chandu"));
+		
+		Assert.assertEquals("Blog added",true, blogDao.addBlog(blog));
+	}
+
+}
+

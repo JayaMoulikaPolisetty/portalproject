@@ -44,6 +44,7 @@ HomeModule.controller('HomeController', function($scope, $rootScope,$cookieStore
   $scope.editProfile=function() {
     HomeService.editProfile($rootScope.userdetails).then(function(response){
       console.log(response.data)
+      $cookieStore.put('user', response.data)
       $location.path("Home")
     })
     ,function(response)

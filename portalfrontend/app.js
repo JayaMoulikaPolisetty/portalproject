@@ -22,6 +22,17 @@ HomeModule.config(function($routeProvider){
       templateUrl: "MyProfile.html",
       controller: "HomeController"
     })
+
+    .when("/addblog", {
+    templateUrl: "Blog.html",
+    controller: "BlogController"
+  })
+
+  .when("/blogslist",{
+    templateUrl: "BlogsList.html",
+    controller: "BlogController"
+  })
+
     // .when("/logout", {
     //   templateUrl: "Login.html",
     //   controller: "HomeController"
