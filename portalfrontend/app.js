@@ -23,7 +23,7 @@ HomeModule.config(function($routeProvider){
       controller: "HomeController"
     })
 
-    .when("/addblog", {
+    .when("/blog", {
     templateUrl: "Blog.html",
     controller: "BlogController"
   })

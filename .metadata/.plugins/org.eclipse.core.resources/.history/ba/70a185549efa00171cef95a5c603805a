@@ -69,13 +69,17 @@ public class BlogController {
 	@PostMapping("/approval")
 	public ResponseEntity<?> approval(@RequestBody Blog blog)
 	{
-		Blog existingBlog = blogDao.getblogById(blog.getBlogId());
-		System.out.println(blog.isApproved());
 		try {
 
+			Blog existingBlog = blogDao.getblogById(blog.getBlogId());
+			if(blog.isApproved()==true)
+			{
 			existingBlog.setApproved(blog.isApproved());
 			blogDao.updateBlog(existingBlog);
-			
+			}
+			else {
+				blogDao.deleteBlog(existingBlog);
+			}
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		}catch(Exception e)
 		{

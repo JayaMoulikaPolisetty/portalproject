@@ -70,7 +70,6 @@ public class BlogController {
 	public ResponseEntity<?> approval(@RequestBody Blog blog)
 	{
 		Blog existingBlog = blogDao.getblogById(blog.getBlogId());
-		System.out.println(blog.isApproved());
 		try {
 
 			existingBlog.setApproved(blog.isApproved());

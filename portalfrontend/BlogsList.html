@@ -7,7 +7,7 @@
         <input type="text" ng-model = "search" class="form-control" placeholder="Search">
       </div>
     </form>
-
+<div>
     <table border="2" class="table table-bordered">
       <thead>
         <tr>
@@ -26,20 +26,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr dir-paginate="blog in blogs|itemsPerPage:2|filter: search|orderBy:sortKey:reverse" ng-if="blog.approved == true">
-          <td><u ng-click="blogDescription(blog.blogId)">{{blog.blogName}}</u></td>
-          <td>{{blog.blogDescription | limitTo: 25}}....</td>
-          <td>{{blog.user.username}}</td>
-          <td>{{blog.blogDate | date}}</td>
+          <tr dir-paginate="b in approvedBlogs|itemsPerPage:2|filter: search|orderBy:sortKey:reverse" ng-show="b.approved==true"  pagination-id="user">
+          <td><u ng-click="blogDescription(b.blogId)">{{b.blogName}}</u></td>
+          <td>{{b.blogDescription | limitTo: 25}}....</td>
+          <td>{{b.user.username}}</td>
+          <td>{{b.blogDate | date}}</td>
         </tr>
       </tbody>
     </table>
-    <dir-pagination-controls
+    <dir-pagination-controls pagination-id="user"
     max-size="2"
     direction-links:"true"
     boundary-links:"true" >
     </dir-pagination-controls>
-    <div>
+</div>
       <div>
         <div ng-if="userdetails.user_role== 'admin'">
           <h2 style="text-align: center">List of the blogs not approved</h2>
@@ -66,7 +66,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr dir-paginate="blog in blogs|itemsPerPage:2|filter: search|orderBy:sortKey:reverse" ng-if="blog.approved == false">
+              <tr dir-paginate="blog in unapprovedBlogs|itemsPerPage:2|filter: search|orderBy:sortKey:reverse" ng-show="blog.approved == false" pagination-id="admin">
                 <td><u ng-click="blogDescription(blog.blogId)">{{blog.blogName}}</u></td>
                 <td>{{blog.blogDescription | limitTo: 25}}......</td>
                 <td>{{blog.user.username}}</td>
@@ -74,10 +74,13 @@
               </tr>
             </tbody>
           </table>
-          <dir-pagination-controls
+          <div>
+          <dir-pagination-controls pagination-id="admin"
           max-size="2"
           direction-links:"true"
           boundary-links:"true" >
           </dir-pagination-controls>
-          <div>
-        </div>
+          </div>
+      </div>
+    </div>
+  </div>
