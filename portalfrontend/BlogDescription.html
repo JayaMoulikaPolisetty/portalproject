@@ -1,0 +1,26 @@
+
+<div class="col-md-2"></div>
+<div class ="col-md-8">
+<div>
+  <h3> Blog Name: {{blog.blogName}}</h3>
+</div>
+<div>
+  <h3> Blog Description</h3>
+  <p> {{blog.blogDescription}}</p>
+</div>
+<div>
+  <h4> Added by : {{blog.user.username}}</h4>
+  <h4> Likes : {{blog.likes}}</h4>
+</div>
+
+<form>
+  <div class="form-group" ng-show = "userdetails.user_role == 'admin'">
+
+    <input type="hidden" ng-model="blog.blogId">
+    <input type="radio"  value="true" ng-model= "blog.approved">Approve
+    <input type="radio"  value="false" ng-model="approval">Reject
+    <button type="button" name="button" ng-click="approve(blog.blogId)">Submit</button>
+  </div>
+</form>
+
+</div>

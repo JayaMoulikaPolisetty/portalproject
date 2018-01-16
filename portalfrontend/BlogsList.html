@@ -1,46 +1,83 @@
-
 <div ng-init="blogslist()">
-<div class="col-md-2"></div>
-<div class="col-md-8">
-  <h2 style="text-align: center">List of the blogs</h2>
-<table border="2"class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Blog Name</th>
-        <th>Blog Description</th>
-        <th>Added By</th>
-        <th>Added on</th>
-      </tr>
-    </thead>
-<tbody>
-  <tr ng-repeat = "blog in blogs" ng-if = "blog.approved == true">
-    <td>{{blog.blogName}}</td>
-    <td>{{blog.blogDescription |  limitTo: 25}}....</td>
-    <td>{{blog.user.username}}</td>
-    <td>{{blog.blogDate | date}}</td>
-  </tr>
-</tbody>
-</table>
-<div>
-<div>
-<div  ng-if="userdetails.user_role== 'admin'">
-  <h2 style="text-align: center">List of the blogs not approved</h2>
-<table border="2"class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Blog Name</th>
-        <th>Blog Description</th>
-        <th>Added By</th>
-        <th>Added on</th>
-      </tr>
-    </thead>
-<tbody>
-  <tr ng-repeat = "blog in blogs" ng-if = "blog.approved == false">
-    <td>{{blog.blogName}}</td>
-    <td>{{blog.blogDescription | limitTo: 25}}......</td>
-    <td>{{blog.user.username}}</td>
-    <td>{{blog.blogDate | date}}</td>
-  </tr>
-</tbody>
-</table>
-</div>
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <h2 style="text-align: center">List of the blogs</h2>
+    <form class="form-inline" style="text-align:right">
+      <div class="form-group">
+        <input type="text" ng-model = "search" class="form-control" placeholder="Search">
+      </div>
+    </form>
+
+    <table border="2" class="table table-bordered">
+      <thead>
+        <tr>
+          <th ng-click="sort('blogName')">Blog Name
+              <span class="glyphicon sort-icon" ng-show="sortKey=='blogName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          </th>
+          <th ng-click="sort('blogDescription')">Blog Description
+              <span class="glyphicon sort-icon" ng-show="sortKey=='blogDescription'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          </th>
+          <th ng-click="sort('username')">Added by
+              <span class="glyphicon sort-icon" ng-show="sortKey=='username'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          </th>
+          <th ng-click="sort('blogDate')">Added on
+              <span class="glyphicon sort-icon" ng-show="sortKey=='blogDate'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr dir-paginate="blog in blogs|itemsPerPage:2|filter: search|orderBy:sortKey:reverse" ng-if="blog.approved == true">
+          <td><u ng-click="blogDescription(blog.blogId)">{{blog.blogName}}</u></td>
+          <td>{{blog.blogDescription | limitTo: 25}}....</td>
+          <td>{{blog.user.username}}</td>
+          <td>{{blog.blogDate | date}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <dir-pagination-controls
+    max-size="2"
+    direction-links:"true"
+    boundary-links:"true" >
+    </dir-pagination-controls>
+    <div>
+      <div>
+        <div ng-if="userdetails.user_role== 'admin'">
+          <h2 style="text-align: center">List of the blogs not approved</h2>
+          <form class="form-inline" style="text-align:right">
+            <div class="form-group">
+              <input type="text" ng-model = "search" class="form-control" placeholder="Search">
+            </div>
+          </form>
+          <table border="2" class="table table-bordered">
+            <thead>
+              <tr>
+                <th ng-click="sort('blogName')">Blog Name
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='blogName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                </th>
+                <th ng-click="sort('blogDescription')">Blog Description
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='blogDescription'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                </th>
+                <th ng-click="sort('username')">Added by
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='username'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                </th>
+                <th ng-click="sort('blogDate')">Added on
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='blogDate'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr dir-paginate="blog in blogs|itemsPerPage:2|filter: search|orderBy:sortKey:reverse" ng-if="blog.approved == false">
+                <td><u ng-click="blogDescription(blog.blogId)">{{blog.blogName}}</u></td>
+                <td>{{blog.blogDescription | limitTo: 25}}......</td>
+                <td>{{blog.user.username}}</td>
+                <td>{{blog.blogDate | date}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <dir-pagination-controls
+          max-size="2"
+          direction-links:"true"
+          boundary-links:"true" >
+          </dir-pagination-controls>
+          <div>
+        </div>

@@ -1,4 +1,4 @@
-var HomeModule = angular.module('HomeModule', ['ngRoute', 'ngCookies']);
+var HomeModule = angular.module('HomeModule', ['ngRoute', 'ngCookies', 'angularUtils.directives.dirPagination']);
 
 HomeModule.config(function($routeProvider){
     $routeProvider
@@ -32,6 +32,11 @@ HomeModule.config(function($routeProvider){
     templateUrl: "BlogsList.html",
     controller: "BlogController"
   })
+
+  .when("/blogDescription",{
+    templateUrl: "BlogDescription.html",
+    controller: "BlogController"
+})
 
     // .when("/logout", {
     //   templateUrl: "Login.html",

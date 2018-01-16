@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.niit.portalbackend.Blog;
@@ -49,5 +50,40 @@ public class BlogController {
 			return new ResponseEntity<String>("error in getting blogs", HttpStatus.NOT_FOUND);
 		}
 
+	}
+	
+	@GetMapping("/blogDescription")
+	public ResponseEntity<?> blogDescription(@RequestParam("blogId") int blogId){
+		try {
+			Blog blog = blogDao.getblogById(blogId);
+			
+			return new ResponseEntity<Blog>(blog,HttpStatus.OK);
+		}catch(Exception e)
+		{
+			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+		}
+	
+		
+	}
+	
+	@PostMapping("/approval")
+	public ResponseEntity<?> approval(@RequestBody Blog blog)
+	{
+		try {
+
+			Blog existingBlog = blogDao.getblogById(blog.getBlogId());
+			if(blog.isApproved()==true)
+			{
+			existingBlog.setApproved(blog.isApproved());
+			blogDao.updateBlog(existingBlog);
+			}
+			else {
+				blogDao.deleteBlog(existingBlog);
+			}
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		}catch(Exception e)
+		{
+			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
+		}
 	}
 }
