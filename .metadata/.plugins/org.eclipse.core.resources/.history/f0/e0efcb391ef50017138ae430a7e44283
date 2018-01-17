@@ -1,6 +1,0 @@
-package com.niit.portalbackend.dao;
-
-public interface BlogDao {
-
-	boolean addBlog(Blog blog);
-}

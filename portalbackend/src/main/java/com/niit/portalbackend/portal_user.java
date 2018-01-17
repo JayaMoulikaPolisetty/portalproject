@@ -29,7 +29,6 @@ public class portal_user {
 	@OneToMany(mappedBy = "user", fetch=FetchType.EAGER)
 	private List<Blog> blogs;
 	
-	
 	public List<Blog> getBlogs() {
 		return blogs;
 	}

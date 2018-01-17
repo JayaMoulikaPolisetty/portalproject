@@ -1,0 +1,5 @@
+package com.niit.portalbackend.daoImpl;
+
+public class BlogCommentDaoImpl {
+
+}

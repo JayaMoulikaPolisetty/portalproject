@@ -19,5 +19,8 @@ HomeModule.factory("BlogService", function($http){
   {
     return $http.post(BASE_URL+"/approval",blog)
   }
+  blogservice.addComment = function(blogComment) {
+    return $http.post(BASE_URL+"/addBlogComment",blogComment)
+  }
   return blogservice;
 })

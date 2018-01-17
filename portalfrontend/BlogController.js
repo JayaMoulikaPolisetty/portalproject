@@ -16,7 +16,7 @@ HomeModule.controller("BlogController", function($scope, $location, $rootScope,$
     }
     BlogService.addblog($scope.blog).then(function(response) {
 
-      $scope.blog = null;
+      // $scope.blog = null;
       alert("Blog added Successfully")
     }, function(response) {
       console.log(response)
@@ -84,4 +84,20 @@ console.log(blogId)
     $scope.reverse=!$scope.reverse;
   }
 
+  $scope.addComment = function(event)
+  {
+    if(event.key=='Enter')
+    {
+      $scope.blogComment.commentedBy = $rootScope.userdetails.username;
+      $scope.blogComment.blog = $rootScope.blogContent;
+
+        BlogService.addComment($scope.blogComment).then(function(response) {
+          alert("commented Successfully")
+          $scope.blogComment={}
+          console.log(response)
+        }),function(response) {
+          console.log(response);
+        }
+      }
+  }
 })

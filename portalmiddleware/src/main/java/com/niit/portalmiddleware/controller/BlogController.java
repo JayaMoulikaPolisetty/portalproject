@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.niit.portalbackend.Blog;
+import com.niit.portalbackend.BlogComment;
+import com.niit.portalbackend.dao.BlogCommentDao;
 import com.niit.portalbackend.dao.BlogDao;
 
 @RestController
@@ -20,6 +22,9 @@ public class BlogController {
 	
 	@Autowired
 	BlogDao blogDao;
+	
+	@Autowired
+	BlogCommentDao blogCommentDao;
 	
 	
 	@PostMapping("/addblog")
@@ -81,5 +86,18 @@ public class BlogController {
 		{
 			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@PostMapping("/addBlogComment")
+	public ResponseEntity<?> addBlogComment(@RequestBody BlogComment blogComment)
+	{
+		blogComment.setCommentedDate(new Date());
+		try {
+			blogCommentDao.addBlogComment(blogComment);
+		}catch(Exception e)
+		{
+			return new ResponseEntity<Boolean>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 }

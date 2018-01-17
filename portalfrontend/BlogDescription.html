@@ -13,6 +13,9 @@
   <h4> Likes : {{blogContent.likes}}</h4>
 </div>
 
+<div class="form-group">
+  <input type="text" class="form-control" placeholder="Comment here.." ng-model="blogComment.blogCommentText" ng-keyup="addComment($event)">
+</div>
 <form>
   <div class="form-group" ng-show = "userdetails.user_role == 'admin' && blogContent.approved==false">
     <input type="radio"  value="true" ng-model= "approved">Approve

@@ -1,0 +1,16 @@
+package com.niit.portalbackend;
+
+import java.util.Date;
+
+public class BlogComment {
+	
+	private String blogCommentId;
+	private String blogCommentText;
+	
+	private String commentedBy;
+	private Date commentedDate;
+	
+	private Blog blog;
+	
+
+}

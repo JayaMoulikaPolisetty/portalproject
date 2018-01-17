@@ -1,0 +1,19 @@
+package com.niit.portalbackend;
+
+import java.util.Date;
+
+import javax.persistence.ManyToOne;
+
+public class BlogComment {
+	
+	private String blogCommentId;
+	private String blogCommentText;
+	
+	private String commentedBy;
+	private Date commentedDate;
+	
+	@ManyToOne
+	private Blog blog;
+	
+
+}

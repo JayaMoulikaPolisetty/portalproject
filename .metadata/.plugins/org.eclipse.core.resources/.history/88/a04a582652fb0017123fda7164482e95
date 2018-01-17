@@ -1,0 +1,9 @@
+package com.niit.portalbackend;
+
+public class BlogComment {
+	
+	private String blogCommentId;
+	private String blogCommentText;
+	
+
+}
