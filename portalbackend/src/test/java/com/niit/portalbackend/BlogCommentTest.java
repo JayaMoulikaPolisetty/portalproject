@@ -1,6 +1,7 @@
 package com.niit.portalbackend;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -33,7 +34,7 @@ public class BlogCommentTest {
 		blogComment = new BlogComment();
 	}
 	
-	@Test
+	/*@Test
 	public void addblogComment()
 	{
 		blogComment.setBlogCommentText("Good blog");
@@ -43,5 +44,16 @@ public class BlogCommentTest {
 		blogComment.setBlog(blog);
 		
 		Assert.assertEquals("Added", true, blogCommentDao.addBlogComment(blogComment));
+	}*/
+	
+	@Test
+	public void blogComments()
+	{
+		List<BlogComment> blogComments = blogCommentDao.allBlogComments(1);
+		for(int i=0;i<blogComments.size();i++) {
+			blogComment = blogComments.get(i);
+			System.out.println(blogComment.getBlogCommentText()+ " "+blogComment.getCommentedBy());
+		}
+		
 	}
 }

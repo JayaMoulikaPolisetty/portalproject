@@ -46,7 +46,7 @@ public class BlogController {
 	@GetMapping("/blogslist")
 	public ResponseEntity<?> blogslist(){
 		try {
-		
+			System.out.println("entered into middleware");
 			List<Blog> blogs = blogDao.getAllBlogs();
 			
 			return new ResponseEntity<List<Blog>>(blogs, HttpStatus.OK);
@@ -99,5 +99,19 @@ public class BlogController {
 			return new ResponseEntity<Boolean>(false,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+	}
+	
+	@GetMapping("/blogComments")
+	public ResponseEntity<?> blogComments(@RequestParam("blogId") int id)
+	{
+		System.out.println("entered to blogComments");
+		try {
+			List<BlogComment> blogComments = blogCommentDao.allBlogComments(id);
+			System.out.println(blogComments);
+			return new ResponseEntity<List<BlogComment>>(blogComments, HttpStatus.OK);
+		}catch(Exception e)
+		{
+			return new ResponseEntity<Boolean>(false,HttpStatus.NOT_FOUND);
+		}
 	}
 }

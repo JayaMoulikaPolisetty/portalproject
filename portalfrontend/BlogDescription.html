@@ -16,6 +16,11 @@
 <div class="form-group">
   <input type="text" class="form-control" placeholder="Comment here.." ng-model="blogComment.blogCommentText" ng-keyup="addComment($event)">
 </div>
+<div class="col-md-4">
+  <ul>
+      <li ng-repeat="bc in blogCommentsList">{{bc.blogCommentText}} [by {{bc.commentedBy}}]</li>
+  </ul>
+</div>
 <form>
   <div class="form-group" ng-show = "userdetails.user_role == 'admin' && blogContent.approved==false">
     <input type="radio"  value="true" ng-model= "approved">Approve

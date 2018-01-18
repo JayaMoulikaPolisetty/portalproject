@@ -1,8 +1,9 @@
-HomeModule.controller("BlogController", function($scope, $location, $rootScope,$cookieStore, BlogService) {
+HomeModule.controller("BlogController", function($scope, $location, $rootScope,$cookieStore, $filter,BlogService) {
 
   if($cookieStore.get('blogData')!=null)
   {
     $rootScope.blogContent=$cookieStore.get('blogData');
+    $rootScope.blogCommentsList = $cookies.get('blogComments')
   }
   $scope.blog={};
   $scope.addblog = function() {
@@ -49,15 +50,22 @@ HomeModule.controller("BlogController", function($scope, $location, $rootScope,$
       }
   }
 
-  $scope.blogDescription = function(blogId) {
-console.log(blogId)
-    BlogService.blogDescription(blogId).then(function(response) {
-      console.log(response.data)
-      $cookieStore.put('blogData',response.data )
-      $rootScope.blogContent = $cookieStore.get('blogData')
-        $location.path("/blogDescription")
+  $scope.blogDescription = function(id) {
+
+    var blogData = $filter('filter')($scope.blogs, {blogId: id},true)[0];
+    console.log(blogData);
+
+    BlogService.blogComments(id).then(function(response) {
+      alert("567")
+    console.log(response.data)
+    $cookieStore.put('blog',blogData )
+    $rootScope.blogContent = $cookieStore.get('blog')
+    $cookies.put('blogComments',response.data)
+    $rootScope.blogCommentsList = $cookies.get('blogComments')
+    $location.path("/blogDescription")
       }),
       function(response) {
+        console.log("123")
         console.log(response)
       }
   }

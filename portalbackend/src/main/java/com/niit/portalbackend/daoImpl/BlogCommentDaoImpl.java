@@ -65,7 +65,7 @@ public class BlogCommentDaoImpl implements BlogCommentDao{
 	@Override
 	public List<BlogComment> allBlogComments(int blogId) {
 		try {
-			return sessionFactory.getCurrentSession().createQuery("from BlogComment where blog_blogId=?"+blogId, BlogComment.class ).getResultList();
+			return sessionFactory.getCurrentSession().createQuery("from BlogComment where blog_blogId="+blogId, BlogComment.class ).getResultList();
 		}
 		catch(Exception e)
 		{

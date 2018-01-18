@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class BlogComment {
 	
@@ -20,6 +22,7 @@ public class BlogComment {
 	private Date commentedDate;
 	
 	@ManyToOne
+	@JsonIgnore
 	private Blog blog;
 
 	
