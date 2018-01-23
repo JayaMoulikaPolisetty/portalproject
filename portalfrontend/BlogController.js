@@ -135,7 +135,10 @@ function(response) {
     BlogService.likeBlog(blogLike).then(function(response) {
       $scope.bloglikes = response.data
       BlogService.likeStatus($rootScope.blogContent.blogId).then(function(response) {
-        $rootScope.blogContent.likes = $rootScope.blogContent.likes+1
+        blogText = $cookieStore.get('blog')
+        blogText.likes = blogText.likes+1;
+        $cookieStore.put("blog",blogText)
+        $rootScope.blogContent = $cookieStore.get('blog')
         if(response.data.username == $rootScope.userdetails.username)
         {
           $scope.likedStatus = true;
@@ -161,7 +164,10 @@ function(response) {
     blogLike.blogId = $rootScope.blogContent.blogId;
     blogLike.username = $rootScope.userdetails.username;
     BlogService.unlikeBlog(blogLike).then(function(response){
-      $rootScope.blogContent.likes = $rootScope.blogContent.likes-1
+      blogText = $cookieStore.get('blog')
+      blogText.likes = blogText.likes-1;
+      $cookieStore.put("blog",blogText)
+      $rootScope.blogContent = $cookieStore.get('blog')
       BlogService.likeStatus($rootScope.blogContent.blogId).then(function(response) {
           console.log(response)
           if(response.data == "")
