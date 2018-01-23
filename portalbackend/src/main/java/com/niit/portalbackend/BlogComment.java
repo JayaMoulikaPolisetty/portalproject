@@ -22,7 +22,6 @@ public class BlogComment {
 	private Date commentedDate;
 	
 	@ManyToOne
-	@JsonIgnore
 	private Blog blog;
 
 	

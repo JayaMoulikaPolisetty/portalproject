@@ -1,9 +1,8 @@
-HomeModule.controller("BlogController", function($scope, $location, $rootScope,$cookieStore, $filter,BlogService) {
+HomeModule.controller("BlogController", function($scope, $location, $rootScope,$cookieStore,$filter,BlogService) {
 
-  if($cookieStore.get('blogData')!=null)
+  if($cookieStore.get('blog')!=null)
   {
-    $rootScope.blogContent=$cookieStore.get('blogData');
-    $rootScope.blogCommentsList = $cookies.get('blogComments')
+    $rootScope.blogContent=$cookieStore.get('blog');
   }
   $scope.blog={};
   $scope.addblog = function() {
@@ -54,21 +53,62 @@ HomeModule.controller("BlogController", function($scope, $location, $rootScope,$
 
     var blogData = $filter('filter')($scope.blogs, {blogId: id},true)[0];
     console.log(blogData);
-
-    BlogService.blogComments(id).then(function(response) {
-      alert("567")
-    console.log(response.data)
     $cookieStore.put('blog',blogData )
     $rootScope.blogContent = $cookieStore.get('blog')
-    $cookies.put('blogComments',response.data)
-    $rootScope.blogCommentsList = $cookies.get('blogComments')
+    // $scope.getComments(blogContent.blogId);
+
     $location.path("/blogDescription")
-      }),
-      function(response) {
-        console.log("123")
-        console.log(response)
-      }
+
+    // $cookieStore.put('blogComments',response.data)
+    // $rootScope.blogCommentsList = $cookieStore.get('blogComments')
   }
+
+//   $scope.blogDescription = function (id) {
+//     BlogService.blogDescription(id).then(function(response){
+//       $cookieStore.put('blog', response.data)
+//       $rootScope.blogContent = $cookieStore.get('blog')
+//       BlogService.blogComments(id).then(function(response) {
+//       $scope.blogCommentsList = response.data;
+//       BlogService.likeStatus(id).then(function(response) {
+//         if(response.data.username == $rootScope.userdetails.username)
+//         {
+//           $scope.likedStatus = true;
+//         }
+//         console.log($rootScope.userdetails.username)
+//         console.log($scope.likedStatus)
+//         console.log(response.data.username)
+//         $location.path("/blogDescription")
+//     }),function(response) {
+//       console.log(response)
+//     }
+//     }),
+//   function(response) {
+//     console.log(response)
+//   }
+//
+// })  }
+
+
+  $scope.getComments = function(id)
+  {
+    BlogService.blogComments(id).then(function(response) {
+    $scope.blogCommentsList = response.data;
+    BlogService.likeStatus(id).then(function(response) {
+      if(response.data.username == $rootScope.userdetails.username)
+      {
+        $scope.likedStatus = true;
+      }
+      console.log($rootScope.userdetails.username)
+      console.log($scope.likedStatus)
+      console.log(response.data.username)
+  }),function(response) {
+    console.log(response)
+  }
+  }),
+function(response) {
+  console.log(response)
+}
+}
 
   $scope.approve= function(blogApproval){
     console.log($rootScope.blogContent.blogId)
@@ -98,14 +138,64 @@ HomeModule.controller("BlogController", function($scope, $location, $rootScope,$
     {
       $scope.blogComment.commentedBy = $rootScope.userdetails.username;
       $scope.blogComment.blog = $rootScope.blogContent;
-
+      console.log($scope.blogComment.blog.blogId);
         BlogService.addComment($scope.blogComment).then(function(response) {
           alert("commented Successfully")
+            $scope.blogCommentsList = response.data;
+          console.log($scope.blogComment.blog)
           $scope.blogComment={}
+
           console.log(response)
         }),function(response) {
           console.log(response);
         }
       }
+  }
+
+  $scope.likeBlog = function()
+  {
+    var blogLike = {};
+    blogLike.blogId = $rootScope.blogContent.blogId;
+    blogLike.username = $rootScope.userdetails.username;
+    console.log(blogLike)
+    BlogService.likeBlog(blogLike).then(function(response) {
+      $scope.bloglikes = response.data
+      BlogService.likeStatus($rootScope.blogContent.blogId).then(function(response) {
+        if(response.data.username == $rootScope.userdetails.username)
+        {
+          $scope.likedStatus = true;
+        }
+        console.log($rootScope.userdetails.username)
+        console.log($scope.likedStatus)
+        console.log(response.data.username)
+        $location.path("/blogDescription")
+    }),function(response) {
+      console.log(response)
+    }
+    $location.path("/blogDescription")
+      console.log(response)
+    }),function(response){
+      console.log(response)
+    }
+  }
+
+  $scope.unlikeBlog = function()
+  {
+    var blogLike = {};
+    blogLike.blogId = $rootScope.blogContent.blogId;
+    blogLike.username = $rootScope.userdetails.username;
+    BlogService.unlikeBlog(blogLike).then(function(response){
+      BlogService.likeStatus($rootScope.blogContent.blogId).then(function(response) {
+          console.log(response)
+          if(response.data == "")
+          {
+            $scope.likedStatus = false;
+          }  $location.path("/blogDescription")
+        }),function(response) {
+          console.log(response)
+        }
+    }),function(response) {
+
+    }
   }
 })

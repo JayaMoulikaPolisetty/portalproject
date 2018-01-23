@@ -1,0 +1,12 @@
+package com.niit.portalbackend;
+
+import javax.persistence.Entity;
+
+@Entity
+public class BlogLikes {
+	
+	private Blog blog;
+	
+	private portal_user user;
+
+}

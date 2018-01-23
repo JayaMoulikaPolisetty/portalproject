@@ -23,9 +23,17 @@ HomeModule.factory("BlogService", function($http){
     return $http.post(BASE_URL+"/addBlogComment",blogComment)
   }
   blogservice.blogComments = function(blogId){
-
-      alert("123")
     return $http.get(BASE_URL+"/blogComments?blogId="+blogId)
   }
+  blogservice.likeBlog = function(blogLike) {
+      console.log(blogLike)
+    return $http.post(BASE_URL+"/likeBlog", blogLike)
+  }
+ blogservice.likeStatus = function(blogId) {
+   return $http.get(BASE_URL+"/likeStatus?blogId="+blogId)
+ }
+ blogservice.unlikeBlog = function(blogLike) {
+   return $http.post(BASE_URL+"/unlikeBlog",blogLike)
+ }
   return blogservice;
 })

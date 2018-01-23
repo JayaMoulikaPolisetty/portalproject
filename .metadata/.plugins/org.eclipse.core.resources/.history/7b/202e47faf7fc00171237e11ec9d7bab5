@@ -1,0 +1,13 @@
+package com.niit.portalbackend.dao;
+
+import com.niit.portalbackend.BlogLike;
+
+public interface BlogLikeDao {
+	
+	boolean addBlogLike(BlogLike blogLike);
+	
+	boolean deleteBlogLike(BlogLike blogLike);
+	
+	boolean getBlogLikeById(int id);
+
+}

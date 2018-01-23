@@ -1,4 +1,5 @@
-
+<div ng-init="getComments(blogContent.blogId)">
+<!-- <div ng-init = "blogDescription(blogcontent.blogId)"> -->
 <div class="col-md-2"></div>
 <div class ="col-md-8">
 <div>
@@ -14,11 +15,23 @@
 </div>
 
 <div class="form-group">
+  <button type="button" class="btn btn-default btn-sm" ng-click="likeBlog()" ng-show="!likedStatus">
+         <span class="glyphicon glyphicon-thumbs-up"></span> Like
+  </button>
+</div>
+
+<div class="form-group">
+  <button type="button" class="btn btn-info btn-sm" ng-click = "unlikeBlog()" ng-show="likedStatus">
+         <span class="glyphicon glyphicon-thumbs-up"></span> Liked
+  </button>
+</div>
+
+<div class="form-group">
   <input type="text" class="form-control" placeholder="Comment here.." ng-model="blogComment.blogCommentText" ng-keyup="addComment($event)">
 </div>
-<div class="col-md-4">
+<div class="col-md-10">
   <ul>
-      <li ng-repeat="bc in blogCommentsList">{{bc.blogCommentText}} [by {{bc.commentedBy}}]</li>
+      <li ng-repeat="bc in blogCommentsList | orderBy: '-bc.blogCommentId'" >{{bc.blogCommentText}}     [by {{bc.commentedBy}}]    [{{bc.commentedDate | date}}]</li>
   </ul>
 </div>
 <form>
@@ -29,4 +42,5 @@
   </div>
 </form>
 
+</div>
 </div>

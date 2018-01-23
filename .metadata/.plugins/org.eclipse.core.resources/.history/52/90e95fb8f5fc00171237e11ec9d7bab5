@@ -1,0 +1,32 @@
+package com.niit.portalbackend;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+@Entity
+public class BlogLikes {
+	
+	@ManyToOne
+	private Blog blog;
+
+	@OneToOne
+	private portal_user user;
+	
+	public Blog getBlog() {
+		return blog;
+	}
+
+	public void setBlog(Blog blog) {
+		this.blog = blog;
+	}
+
+	public portal_user getUser() {
+		return user;
+	}
+
+	public void setUser(portal_user user) {
+		this.user = user;
+	}
+
+}

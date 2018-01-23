@@ -31,6 +31,7 @@ public class Blog {
 	@JsonIgnore
 	@OneToMany(mappedBy="blog", fetch=FetchType.EAGER)
 	private List<BlogComment> blogComments;
+
 	
 	public int getBlogId() {
 		return blogId;

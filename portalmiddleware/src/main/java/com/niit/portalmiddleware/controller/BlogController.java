@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.niit.portalbackend.Blog;
 import com.niit.portalbackend.BlogComment;
+import com.niit.portalbackend.BlogLike;
 import com.niit.portalbackend.dao.BlogCommentDao;
 import com.niit.portalbackend.dao.BlogDao;
+import com.niit.portalbackend.dao.BlogLikeDao;
 
 @RestController
 public class BlogController {
@@ -25,6 +27,9 @@ public class BlogController {
 	
 	@Autowired
 	BlogCommentDao blogCommentDao;
+	
+	@Autowired
+	BlogLikeDao blogLikeDao;
 	
 	
 	@PostMapping("/addblog")
@@ -91,14 +96,17 @@ public class BlogController {
 	@PostMapping("/addBlogComment")
 	public ResponseEntity<?> addBlogComment(@RequestBody BlogComment blogComment)
 	{
+		System.out.println(blogComment.getBlog());
 		blogComment.setCommentedDate(new Date());
 		try {
 			blogCommentDao.addBlogComment(blogComment);
+			List<BlogComment> blogComments=blogDao.getblogById(blogComment.getBlog().getBlogId()).getBlogComments();
+			return new ResponseEntity<List<BlogComment>>(blogComments, HttpStatus.OK);	
 		}catch(Exception e)
 		{
 			return new ResponseEntity<Boolean>(false,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		
 	}
 	
 	@GetMapping("/blogComments")
@@ -112,6 +120,57 @@ public class BlogController {
 		}catch(Exception e)
 		{
 			return new ResponseEntity<Boolean>(false,HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@PostMapping("/likeBlog")
+	public ResponseEntity<?> likeBlog(@RequestBody BlogLike blogLike)
+	{
+		try {
+			Blog blog = blogDao.getblogById(blogLike.getBlogId());
+			blog.setLikes(blog.getLikes()+1);
+			blogDao.updateBlog(blog);
+			blogLike.setBlogId(blogLike.getBlogId());
+			blogLike.setUsername(blogLike.getUsername());
+			blogLikeDao.addBlogLike(blogLike);
+			List<BlogLike> blogLikes = blogLikeDao.blogLikes(blogLike.getBlogId());
+			return new ResponseEntity<List<BlogLike>>(blogLikes, HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<Boolean>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+	}
+	
+	@GetMapping("/likeStatus")
+	public ResponseEntity<?> likeStatus(@RequestParam("blogId") int id)
+	{
+		try {
+			BlogLike blogLike = blogLikeDao.getBlogLikeById(id);
+				return new ResponseEntity<BlogLike>(blogLike, HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<Boolean>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PostMapping("/unlikeBlog")
+	public ResponseEntity<?> unlikeBlog(@RequestBody BlogLike blogLike)
+	{
+		try {
+			
+			BlogLike blogLiked = blogLikeDao.getBlogLike(blogLike.getBlogId(), blogLike.getUsername());
+			if(blogLike!=null)
+			{
+				blogLikeDao.deleteBlogLike(blogLiked);
+			}
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<Boolean>(false,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }
