@@ -160,9 +160,7 @@ public class BlogController {
 	public ResponseEntity<?> unlikeBlog(@RequestBody BlogLike blogLike)
 	{
 		try {
-			Blog blog = blogDao.getblogById(blogLike.getBlogId());
-			blog.setLikes(blog.getLikes()-1);
-			blogDao.updateBlog(blog);
+			
 			BlogLike blogLiked = blogLikeDao.getBlogLike(blogLike.getBlogId(), blogLike.getUsername());
 			if(blogLike!=null)
 			{

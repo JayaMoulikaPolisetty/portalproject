@@ -63,32 +63,6 @@ HomeModule.controller("BlogController", function($scope, $location, $rootScope,$
     // $rootScope.blogCommentsList = $cookieStore.get('blogComments')
   }
 
-//   $scope.blogDescription = function (id) {
-//     BlogService.blogDescription(id).then(function(response){
-//       $cookieStore.put('blog', response.data)
-//       $rootScope.blogContent = $cookieStore.get('blog')
-//       BlogService.blogComments(id).then(function(response) {
-//       $scope.blogCommentsList = response.data;
-//       BlogService.likeStatus(id).then(function(response) {
-//         if(response.data.username == $rootScope.userdetails.username)
-//         {
-//           $scope.likedStatus = true;
-//         }
-//         console.log($rootScope.userdetails.username)
-//         console.log($scope.likedStatus)
-//         console.log(response.data.username)
-//         $location.path("/blogDescription")
-//     }),function(response) {
-//       console.log(response)
-//     }
-//     }),
-//   function(response) {
-//     console.log(response)
-//   }
-//
-// })  }
-
-
   $scope.getComments = function(id)
   {
     BlogService.blogComments(id).then(function(response) {
@@ -157,17 +131,19 @@ function(response) {
     var blogLike = {};
     blogLike.blogId = $rootScope.blogContent.blogId;
     blogLike.username = $rootScope.userdetails.username;
-    console.log(blogLike)
+    // console.log(blogLike)
     BlogService.likeBlog(blogLike).then(function(response) {
       $scope.bloglikes = response.data
       BlogService.likeStatus($rootScope.blogContent.blogId).then(function(response) {
+        $rootScope.blogContent.likes = $rootScope.blogContent.likes+1
         if(response.data.username == $rootScope.userdetails.username)
         {
           $scope.likedStatus = true;
         }
-        console.log($rootScope.userdetails.username)
-        console.log($scope.likedStatus)
-        console.log(response.data.username)
+        console.log($rootScope.blogContent.likes);
+        // console.log($rootScope.userdetails.username)
+        // console.log($scope.likedStatus)
+        // console.log(response.data.username)
         $location.path("/blogDescription")
     }),function(response) {
       console.log(response)
@@ -185,6 +161,7 @@ function(response) {
     blogLike.blogId = $rootScope.blogContent.blogId;
     blogLike.username = $rootScope.userdetails.username;
     BlogService.unlikeBlog(blogLike).then(function(response){
+      $rootScope.blogContent.likes = $rootScope.blogContent.likes-1
       BlogService.likeStatus($rootScope.blogContent.blogId).then(function(response) {
           console.log(response)
           if(response.data == "")
