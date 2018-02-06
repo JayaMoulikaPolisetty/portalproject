@@ -84,12 +84,17 @@ function(response) {
 }
 }
 
+$scope.showRejectionTxt=function(val){
+		$scope.isRejected=val
+	}
+
   $scope.approve= function(blogApproval){
     console.log($rootScope.blogContent.blogId)
     console.log(blogApproval);
     $scope.blogApprove = {};
     $scope.blogApprove.blogId = $rootScope.blogContent.blogId;
-    $scope.blogApprove.approved = blogApproval;
+    $scope.blogApprove.approved = blogApproval.approved;
+    $scope.blogApprove.remarks = blogApproval.rejectionReason
     BlogService.approve($scope.blogApprove).then(function(response){
       console.log(response)
       $location.path("/blogslist")

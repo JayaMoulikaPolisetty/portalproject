@@ -1,6 +1,0 @@
-package com.niit.portalbackend.dao;
-
-public interface BlogCommentDao {
-
-	boolean addBlogComment(BlogComment blogComment);
-}

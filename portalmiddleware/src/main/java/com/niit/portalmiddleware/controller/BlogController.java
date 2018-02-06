@@ -84,6 +84,7 @@ public class BlogController {
 		try {
 
 			existingBlog.setApproved(blog.isApproved());
+			existingBlog.setRemarks(blog.getRemarks());
 			blogDao.updateBlog(existingBlog);
 			
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);

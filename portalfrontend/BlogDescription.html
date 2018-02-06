@@ -36,11 +36,23 @@
 </div>
 <form>
   <div class="form-group" ng-show = "userdetails.user_role == 'admin' && blogContent.approved==false">
-    <input type="radio"  value="true" ng-model= "approved">Approve
+  <!--   <input type="radio"  value="true" ng-model= "approved">Approve
     <input type="radio"  value="false" ng-model="approved">Reject
-    <button type="button" name="button" ng-click="approve(approved)">Submit</button>
-  </div>
+
+    <button type="button" name="button" ng-click="approve(approved)">Submit</button>-->
+
+
+<input type="radio" ng-model="blogPost.approved" value="true" ng-click="showRejectionTxt(false)">Approve
+<input type="radio" ng-model="blogPost.approved" value="false" ng-click="showRejectionTxt(true)">Reject
+<br>
+<input type = "hidden" ng-model = "blogPost.rejectionReason" ng-if="!isRejected" value="">
+<div ng-show="isRejected">
+Enter Rejection Reason
+<input type="text" ng-model="blogPost.rejectionReason" ><br>
+</div>
+<input type="submit" ng-click="approve(blogPost)">
 </form>
+  </div>
 
 </div>
 </div>

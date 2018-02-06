@@ -22,7 +22,7 @@ public class Blog {
 	private String blogName;
 	private String blogDescription;
 	private boolean approved;
-	
+	private String remarks;
 	@ManyToOne
 	private portal_user user;
 	private int likes;
@@ -80,6 +80,12 @@ public class Blog {
 	}
 	public void setBlogComments(List<BlogComment> blogComments) {
 		this.blogComments = blogComments;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 	
 	
