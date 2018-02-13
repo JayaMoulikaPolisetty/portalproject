@@ -1,0 +1,44 @@
+
+<div ng-init="jobsList()">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+  <h2 style="text-align: center">List of the Jobs</h2>
+  <form class="form-inline" style="text-align:right">
+    <div class="form-group">
+      <input type="text" ng-model = "search" class="form-control" placeholder="Search">
+    </div>
+  </form>
+<div>
+  <table border="2" class="table table-bordered">
+    <thead>
+      <tr>
+        <th ng-click="sort('jobTitle')">Job Title
+            <span class="glyphicon sort-icon" ng-show="sortKey=='jobTitle'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+        <th ng-click="sort('jobDescription')">Job Description
+            <span class="glyphicon sort-icon" ng-show="sortKey=='jobDescription'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+        <th ng-click="sort('companyName')">company Name
+            <span class="glyphicon sort-icon" ng-show="sortKey=='companyName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+        <th ng-click="sort('postedOn')">Posted on
+            <span class="glyphicon sort-icon" ng-show="sortKey=='postedOn'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr dir-paginate="j in jobs|itemsPerPage:5|filter: search|orderBy:sortKey:reverse">
+        <td><u>{{j.jobTitle}}</u></td>
+        <!-- <td><a href="#!/blogDescription">{{b.blogName}}</a></td> -->
+        <td>{{j.jobDescription | limitTo: 25}}....</td>
+        <td>{{j.companyName}}</td>
+        <td>{{j.postedOn | date}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <dir-pagination-controls
+  max-size="5"
+  direction-links:"true"
+  boundary-links:"true" >
+  </dir-pagination-controls>
+</div>

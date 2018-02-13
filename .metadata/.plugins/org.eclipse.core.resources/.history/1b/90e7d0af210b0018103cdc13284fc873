@@ -1,0 +1,13 @@
+package com.niit.portalmiddleware.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class JobController {
+	
+	@Autowired
+	JobDao jobDao;
+
+}

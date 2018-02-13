@@ -1,0 +1,5 @@
+package com.niit.portalbackend.dao;
+
+public class JobDao {
+
+}

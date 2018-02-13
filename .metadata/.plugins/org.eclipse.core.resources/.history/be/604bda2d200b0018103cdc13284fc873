@@ -1,0 +1,12 @@
+package com.niit.portalbackend;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.niit.portalbackend.dao.JobDao;
+
+public class JobTest {
+	AnnotationConfigApplicationContext context;
+	Job job;
+	JobDao jobDao;
+
+}

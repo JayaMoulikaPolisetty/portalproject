@@ -1,0 +1,30 @@
+<div class="col-md-3"></div>
+<div class="col-md-6">
+  <h3 style="text-align: center">Add Jobs</h3>
+  <form>
+    <div class="form-group">
+      <label for="jobTitle">Job Title</label>
+      <input type="text" class="form-control" id="jobTitle" placeholder="Enter Job Title" ng-model= "job.jobTitle">
+    </div>
+    <div class="form-group">
+      <label for="jobDescription">Job Description</label>
+      <input type="text" class="form-control" id="jobDescription" placeholder="Enter Job Description" ng-model="job.jobDescription">
+    </div>
+    <div class="form-group">
+      <label for="companyName">Company Name</label>
+      <input type="text" class="form-control" id="companyName" placeholder="Enter Company name" ng-model="job.companyName">
+    </div>
+    <div class="form-group">
+      <label for="salary">Salary</label>
+      <input type="text" class="form-control" id="salary" placeholder="Enter Salary" ng-model="job.salary">
+    </div>
+    <div class="form-group">
+      <label for="experience">Experience</label>
+      <input type="text" class="form-control" id="experience" placeholder="Enter Experience" ng-model="job.experience">
+    </div>
+    <div class="form-group">
+      <label for="location">Location</label>
+      <input type="text" class="form-control" id="location" placeholder="Enter Location" ng-model="job.location">
+    </div>
+    <button type="submit" name="button" ng-click="addJob()">Submit</button>
+  </form>

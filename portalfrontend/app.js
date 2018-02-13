@@ -36,7 +36,15 @@ HomeModule.config(function($routeProvider){
   .when("/blogDescription",{
     templateUrl: "BlogDescription.html",
     controller: "BlogController"
-})
+  })
+  .when("/addJob",{
+    templateUrl: "Job.html",
+    controller: "JobController"
+  })
+  .when("/jobsList",{
+    templateUrl: "JobsList.html",
+    controller: "JobController"
+  })
 
     // .when("/logout", {
     //   templateUrl: "Login.html",
