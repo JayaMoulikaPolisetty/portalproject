@@ -1,5 +1,8 @@
 HomeModule.controller("JobController", function($scope, $location, $rootScope,$cookieStore,$filter, JobService) {
-
+  if($cookieStore.get('job')!=null)
+  {
+    $rootScope.jobContent=$cookieStore.get('job');
+  }
   $scope.job = {}
   $scope.addJob = function()
   {
@@ -20,8 +23,15 @@ HomeModule.controller("JobController", function($scope, $location, $rootScope,$c
     }),function(response) {
       console.log(response.data)
     }
+  }
 
-
+  $scope.jobDescription = function(id){
+    console.log($scope.jobs)
+    var jobData = $filter('filter')($scope.jobs, {jobId: id},true)[0];
+    console.log(jobData);
+    $cookieStore.put('job', jobData);
+    $rootScope.jobContent = $cookieStore.get('job');
+    $location.path("/jobDescription")
   }
 
 })

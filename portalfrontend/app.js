@@ -46,6 +46,10 @@ HomeModule.config(function($routeProvider){
     controller: "JobController"
   })
 
+  .when("/jobDescription",{
+    templateUrl: "JobDescription.html",
+    controller: "JobController"
+  })
     // .when("/logout", {
     //   templateUrl: "Login.html",
     //   controller: "HomeController"

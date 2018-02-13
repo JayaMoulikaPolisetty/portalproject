@@ -28,8 +28,7 @@
     </thead>
     <tbody>
         <tr dir-paginate="j in jobs|itemsPerPage:5|filter: search|orderBy:sortKey:reverse">
-        <td><u>{{j.jobTitle}}</u></td>
-        <!-- <td><a href="#!/blogDescription">{{b.blogName}}</a></td> -->
+        <td><u ng-click="jobDescription(j.jobId)">{{j.jobTitle}}</u></td>
         <td>{{j.jobDescription | limitTo: 25}}....</td>
         <td>{{j.companyName}}</td>
         <td>{{j.postedOn | date}}</td>
