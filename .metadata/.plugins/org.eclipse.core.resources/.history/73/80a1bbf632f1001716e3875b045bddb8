@@ -67,7 +67,7 @@ public class HomeController {
 			Use the data from your repository to power these enhanced features.
 
 			Vulnerability alerts 
-			Receive alerts for known security vulnerablities found in dependencies.
+			Receive alerts for known security vulnerabilities found in dependencies.
 
 			Merge button
 			When merging pull requests, you can allow any combination of merge commits, squashing, or rebasing. At least one option must be enabled.
@@ -118,7 +118,7 @@ public class HomeController {
 			Delete this repository Delete this repository
 			Once you delete a repository, there is no going back. Please be certain.
 
-			© 2018 GitHub, Inc.
+			Â© 2018 GitHub, Inc.
 			Terms
 			Privacy
 			Security
